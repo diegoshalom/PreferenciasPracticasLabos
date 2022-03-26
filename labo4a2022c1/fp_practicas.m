@@ -1,6 +1,30 @@
 classdef fp_practicas
     methods (Static)
 
+        function sol = ordenoprimerotecnicas(sol)
+            %ordeno para que la primera practica quede compatible con las tecnicas
+            practP1a =  ["young" "vacio" "pid" "ferro" ];%En P1 tienen que estar estas 4 
+            practP1b =  ["peltier" "leidenfrost" ];% y una de estas dos tambien
+            practP1a =  [10 9 5 2 ];%En P1 tienen que estar estas 4 
+            practP1b =  [4 3 ];% y una de estas dos tambien        
+            l1 = length(intersect(sol(:,1),practP1a))==4 & length(intersect(sol(:,1),practP1b))>=1;
+            l2 = length(intersect(sol(:,2),practP1a))==4 & length(intersect(sol(:,2),practP1b))>=1;
+            l3 = length(intersect(sol(:,3),practP1a))==4 & length(intersect(sol(:,3),practP1b))>=1;
+            while 1
+                if l1
+                    break
+                end
+                if l2
+                    sol(:,[1 2 3])=sol(:,[2 1 3]);
+                    break
+                end
+                if l3
+                    sol(:,[1 2 3])=sol(:,[3 1 2]);
+                    break
+                end
+                break
+            end                
+        end
         function prefnum = prefstr2prefnum(practicas,pref)
             prefnum = nan(size(pref));
             for i=1:numel(pref)
@@ -197,8 +221,8 @@ classdef fp_practicas
             
             %(en realidad pueden estar juntas en P1 o P2 o P3)
             l1 = length(intersect(sol(:,1),practP1a))==4 & length(intersect(sol(:,1),practP1b))>=1;
-            l2 = length(intersect(sol(:,2),practP1a))==4 & length(intersect(sol(:,1),practP1b))>=1;
-            l3 = length(intersect(sol(:,3),practP1a))==4 & length(intersect(sol(:,1),practP1b))>=1;
+            l2 = length(intersect(sol(:,2),practP1a))==4 & length(intersect(sol(:,2),practP1b))>=1;
+            l3 = length(intersect(sol(:,3),practP1a))==4 & length(intersect(sol(:,3),practP1b))>=1;
             if ~any([l1,l2,l3])
                 out = out+1000;
             end

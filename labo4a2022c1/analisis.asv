@@ -25,7 +25,7 @@ tic
 
 if exist('soluciones.mat','file')
     load soluciones
-    for indsol=1:length(sols)
+    for indsol=1:length(sols)%recalculo puntajes
         sols(indsol).puntaje = fp_practicas.puntaje(pref,sols(indsol).sol);
     end
     mejorsol = sols(1).sol;
@@ -43,7 +43,7 @@ while 1
     sol = fp_practicas.construyosol(pref,practicas);
     punt= fp_practicas.puntaje(pref,sol); %mido su puntaje         
    
-    if punt<3100061%mejorpunt%300071 % %mejorpunt
+    if punt<mejorpunt%300071 % %mejorpunt
         fprintf("Grosooooooooo %d %d \n",cont,punt)
         
         mejorsol = sol;
@@ -66,6 +66,7 @@ while 1
         [~,indsorted]=sort([sols.puntaje]);
         sols = sols(indsorted);        
         
+        disp("Me falta intercambiar las columnas para que la primera tenga las condiciones de las charlas de tecnicas")
                 
         fname = sprintf("soluciones");
         save(fname,'sols')
@@ -83,12 +84,13 @@ end
 %% busco cuáles de las permutaciones son válidas. Un 63%. No pierdo tanto tiempo, lo dejo que intente todos.
 practicas = ["nuclear" "conteo" "caminata" "pinzas" "foto" "glow" "esp laser" "esp"];
 practicas =  ["difusividad"    "ferro"    "leindenfrost"    "peltier"    "pid"    "piezo"    "resistividad" "susceptibilidad"    "vacio"    "young"];
+practicas = 1:10
 myperms = perms(1:8);
 
 valid = nan(length(myperms),1);
 for i=1:length(myperms)
     sol1g = practicas(myperms(i,1:3));
-    valid(i) = check_sol_1_group(sol1g );
+    valid(i) = fp_practicas.check_sol_1_group(sol1g );
 end
 sum(valid)/length(valid)
 
@@ -101,3 +103,8 @@ sols(3).sol
 for i=1:5
     [ sols(i).rank sum(sols(i).rank,2)]
 end
+
+fprintf("La solución elegida:\n")
+sols(4).solstr
+[sols(4).rank sum(sols(4).rank,2)]
+fprintf("Es buena porque es pareja entre los grupos, \nningún grupo tiene todas las primeras y otro las últimas\nTodos hacen su primera opción\n")
