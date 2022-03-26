@@ -3,7 +3,7 @@ Código para buscar distribuciones de prácticas que satisfagan ciertas condicio
 
 ## Laboratorio 4 - Pasquini - 1er Cuat 2022
 
-Requerimientos: 
+### Requerimientos: 
 - 1- 8 prácticas diferentes cada día (obvio)
 - 2- 3 prácticas diferentes cada grupo (obvio)
 - 3- Todos hagan una (y solo una) de lockin: susceptibilidad, resistividad, piezo
